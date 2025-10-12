@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Fields Africa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .tagline {
+            color: #718096;
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .content-area {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            min-height: 500px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .card h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .card p {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        .premium-badge {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .subscription-tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tier {
+            background: white;
+            border: 3px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .tier:hover {
+            transform: scale(1.05);
+            border-color: #667eea;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .tier.featured {
+            border-color: #43e97b;
+            background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%);
+        }
+
+        .tier h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .price {
+            font-size: 2.5em;
+            color: #667eea;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .tier ul {
+            list-style: none;
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .tier li {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .tier li:before {
+            content: "✓ ";
+            color: #43e97b;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .featured .cta-btn {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 20px;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .sponsor-card {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 5px solid #f39c12;
+        }
+
+        .sponsor-card h4 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .policy-item {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s;
+        }
+
+        .policy-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .locked {
+            position: relative;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .locked:after {
+            content: "🔒 Premium";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+        }
+
+        .filter-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .filter-tag {
+            padding: 8px 16px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-tag:hover, .filter-tag.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .nav-btn {
+                font-size: 0.9em;
+                padding: 10px 16px;
+            }
+            
+            .content-area {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon">🌱</div>
+                <div>
+                    <h1>Green Fields Africa</h1>
+                    <p class="tagline">Empowering African Farmers Through Knowledge & Resources</p>
+                </div>
+            </div>
+            <nav>
+                <button class="nav-btn active" onclick="showSection('home')">Home</button>
+                <button class="nav-btn" onclick="showSection('education')">Land Education</button>
+                <button class="nav-btn" onclick="showSection('financial')">Financial Aid</button>
+                <button class="nav-btn" onclick="showSection('policies')">Policy Updates</button>
+                <button class="nav-btn" onclick="showSection('subscription')">Subscribe</button>
+            </nav>
+        </header>
+
+        <div class="content-area">
+            <!-- HOME SECTION -->
+            <div id="home" class="section active">
+                <h2>Welcome to Green Fields Africa</h2>
+                <p style="font-size: 1.1em; color: #4a5568; margin: 20px 0;">Your comprehensive platform for sustainable farming, financial resources, and agricultural policy insights across Africa.</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div>Active Farmers</div>
+                        <div class="stat-number">12,450+</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>Resources Available</div>
+                        <div class="stat-number">850+</div>
+                    </div>
+                    <div class="stat-card">
+                        <div>Funding Accessed</div>
+                        <div class="stat-number">R2.4M</div>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <div class="card" onclick="showSection('education')">
+                        <h3>🌍 Combat Land Degradation</h3>
+                        <p>Learn about soil health, erosion prevention, and sustainable land management practices tailored for African agriculture.</p>
+                        <span class="badge">Free Access</span>
+                    </div>
+                    <div class="card" onclick="showSection('financial')">
+                        <h3>💰 Access Funding</h3>
+                        <p>Discover grants, loans, and financial assistance programs available to farmers across Africa.</p>
+                        <span class="badge">Free Access</span>
+                    </div>
+                    <div class="card" onclick="showSection('policies')">
+                        <h3>📋 Stay Informed</h3>
+                        <p>Get the latest updates on agricultural policies, regulations, and government initiatives.</p>
+                        <span class="badge premium-badge">Premium</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EDUCATION SECTION -->
+            <div id="education" class="section">
+                <h2>Land Degradation Education</h2>
+                <input type="text" class="search-bar" placeholder="Search educational resources..." onkeyup="filterContent(this.value, 'education')">
+                
+                <div class="filter-tags">
+                    <button class="filter-tag active">All Topics</button>
+                    <button class="filter-tag">Soil Health</button>
+                    <button class="filter-tag">Water Management</button>
+                    <button class="filter-tag">Erosion Control</button>
+                </div>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>Understanding Soil Degradation</h3>
+                        <p>Soil degradation reduces fertility and crop yields. Learn about causes including overgrazing, deforestation, and poor irrigation practices.</p>
+                        <span class="badge">Beginner</span>
+                    </div>
+                    <div class="card">
+                        <h3>Water Conservation Techniques</h3>
+                        <p>Discover methods like drip irrigation, rainwater harvesting, and mulching to preserve water and prevent soil erosion.</p>
+                        <span class="badge">Intermediate</span>
+                    </div>
+                    <div class="card">
+                        <h3>Crop Rotation Benefits</h3>
+                        <p>Rotating crops helps restore nutrients, break pest cycles, and improve soil structure for long-term sustainability.</p>
+                        <span class="badge">Beginner</span>
+                    </div>
+                    <div class="card">
+                        <h3>Agroforestry Practices</h3>
+                        <p>Integrating trees with crops protects soil, increases biodiversity, and provides additional income sources.</p>
+                        <span class="badge">Advanced</span>
+                    </div>
+                    <div class="card">
+                        <h3>Composting & Organic Matter</h3>
+                        <p>Learn how to create nutrient-rich compost to improve soil health and reduce dependence on chemical fertilizers.</p>
+                        <span class="badge">Beginner</span>
+                    </div>
+                    <div class="card">
+                        <h3>Terracing for Slope Protection</h3>
+                        <p>Build terraces on sloped land to prevent runoff, reduce erosion, and create level planting areas.</p>
+                        <span class="badge">Intermediate</span>
+                    </div>
+                </div>
+
+                <div class="sponsor-card">
+                    <h4>Sponsored: AgriSupply Co.</h4>
+                    <p>Quality seeds and organic fertilizers delivered to your farm. Use code GREENFIELDS for 15% off your first order.</p>
+                </div>
+            </div>
+
+            <!-- FINANCIAL SECTION -->
+            <div id="financial" class="section">
+                <h2>Financial Assistance Hub</h2>
+                <input type="text" class="search-bar" placeholder="Search funding opportunities..." onkeyup="filterContent(this.value, 'financial')">
+
+                <div class="grid">
+                    <div class="card">
+                        <h3>African Development Bank - AgriGrants</h3>
+                        <p><strong>Amount:</strong> $5,000 - $50,000<br>
+                        <strong>Eligibility:</strong> Small-scale farmers<br>
+                        <strong>Deadline:</strong> December 31, 2025</p>
+                        <span class="badge">Grant</span>
+                    </div>
+                    <div class="card">
+                        <h3>Climate-Smart Agriculture Fund</h3>
+                        <p><strong>Amount:</strong> $10,000 - $100,000<br>
+                        <strong>Eligibility:</strong> Sustainable farming projects<br>
+                        <strong>Deadline:</strong> Rolling applications</p>
+                        <span class="badge">Low-Interest Loan</span>
+                    </div>
+                    <div class="card">
+                        <h3>Women in Agriculture Initiative</h3>
+                        <p><strong>Amount:</strong> $2,000 - $25,000<br>
+                        <strong>Eligibility:</strong> Female farmers & cooperatives<br>
+                        <strong>Deadline:</strong> November 15, 2025</p>
+                        <span class="badge">Grant</span>
+                    </div>
+                    <div class="card">
+                        <h3>Youth Farmer Startup Program</h3>
+                        <p><strong>Amount:</strong> $3,000 - $30,000<br>
+                        <strong>Eligibility:</strong> Farmers aged 18-35<br>
+                        <strong>Deadline:</strong> January 30, 2026</p>
+                        <span class="badge">Mixed Funding</span>
+                    </div>
+                    <div class="card">
+                        <h3>Irrigation Equipment Subsidy</h3>
+                        <p><strong>Amount:</strong> Up to 60% subsidy<br>
+                        <strong>Eligibility:</strong> All registered farmers<br>
+                        <strong>Deadline:</strong> Ongoing</p>
+                        <span class="badge">Subsidy</span>
+                    </div>
+                    <div class="card">
+                        <h3>Cooperative Development Fund</h3>
+                        <p><strong>Amount:</strong> $20,000 - $200,000<br>
+                        <strong>Eligibility:</strong> Farming cooperatives (10+ members)<br>
+                        <strong>Deadline:</strong> March 1, 2026</p>
+                        <span class="badge">Grant</span>
+                    </div>
+                </div>
+
+                <div class="sponsor-card">
+                    <h4>Sponsored: FarmCredit Bank</h4>
+                    <p>Low-interest loans for farmers. Apply online in 10 minutes. Approval within 48 hours. Visit www.farmcredit.co.za</p>
+                </div>
+            </div>
+
+            <!-- POLICIES SECTION -->
+            <div id="policies" class="section">
+                <h2>Agricultural Policy Updates</h2>
+                <p style="color: #718096; margin-bottom: 20px;">Stay informed about the latest policies affecting agriculture across Africa.</p>
+
+                <div class="policy-item">
+                    <h3>🆓 Free Policy Updates</h3>
+                    <p><strong>Recent Update:</strong> New Drought Relief Program Announced</p>
+                    <p style="margin-top: 10px;">The Ministry of Agriculture has launched a R500 million drought relief program for affected farmers in the Eastern Cape.</p>
+                    <p style="color: #718096; margin-top: 10px;"><em>Published: October 10, 2025</em></p>
+                </div>
+
+                <div class="policy-item">
+                    <h3>🆓 Subsidy Program Updates</h3>
+                    <p><strong>Recent Update:</strong> Fertilizer Subsidy Extended</p>
+                    <p style="margin-top: 10px;">The government has extended the fertilizer subsidy program through December 2026, covering up to 50% of costs.</p>
+                    <p style="color: #718096; margin-top: 10px;"><em>Published: October 8, 2025</em></p>
+                </div>
+
+                <div class="policy-item locked">
+                    <h3>📋 Detailed Land Reform Analysis</h3>
+                    <p><strong>Premium Content:</strong> Comprehensive breakdown of the new Land Reform Amendment Bill, including implementation timeline, eligibility criteria, and impact assessments.</p>
+                    <p style="color: #718096; margin-top: 10px;"><em>Updated: October 12, 2025</em></p>
+                </div>
+
+                <div class="policy-item locked">
+                    <h3>📋 Water Rights Legislation Guide</h3>
+                    <p><strong>Premium Content:</strong> Complete guide to water rights allocation, licensing procedures, and compliance requirements under the new Water Management Act.</p>
+                    <p style="color: #718096; margin-top: 10px;"><em>Updated: October 11, 2025</em></p>
+                </div>
+
+                <div class="policy-item locked">
+                    <h3>📋 Export Regulations & Tariffs</h3>
+                    <p><strong>Premium Content:</strong> Detailed analysis of agricultural export regulations, tariff schedules, and market access agreements with EU and SADC countries.</p>
+                    <p style="color: #718096; margin-top: 10px;"><em>Updated: October 9, 2025</em></p>
+                </div>
+
+                <div class="policy-item locked">
+                    <h3>📋 Organic Certification Standards</h3>
+                    <p><strong>Premium Content:</strong> Step-by-step guide to obtaining organic certification, including costs, timelines, and ongoing compliance requirements.</p>
+                    <p style="color: #718096; margin-top: 10px;"><em>Updated: October 7, 2025</em></p>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 12px; text-align: center; margin-top: 30px;">
+                    <h3 style="color: white;">Unlock Premium Policy Insights</h3>
+                    <p style="margin: 15px 0;">Get detailed policy analysis, legislative breakdowns, and expert commentary to stay ahead.</p>
+                    <button class="cta-btn" style="background: white; color: #667eea; width: auto; padding: 15px 40px;" onclick="showSection('subscription')">Upgrade to Premium</button>
+                </div>
+            </div>
+
+            <!-- SUBSCRIPTION SECTION -->
+            <div id="subscription" class="section">
+                <h2>Choose Your Plan</h2>
+                <p style="font-size: 1.1em; color: #4a5568; margin: 20px 0;">Select the subscription that best fits your farming needs.</p>
+
+                <div class="subscription-tiers">
+                    <div class="tier">
+                        <h3>Free</h3>
+                        <div class="price">$0<span style="font-size: 0.4em;">/month</span></div>
+                        <ul>
+                            <li>Basic land degradation education</li>
+                            <li>Access to funding database</li>
+                            <li>General policy updates</li>
+                            <li>Community forum access</li>
+                            <li>Monthly newsletter</li>
+                        </ul>
+                        <button class="cta-btn" onclick="alert('You are currently on the Free plan!')">Current Plan</button>
+                    </div>
+
+                    <div class="tier featured">
+                        <h3>Basic</h3>
+                        <div class="price">$9.99<span style="font-size: 0.4em;">/month</span></div>
+                        <ul>
+                            <li>Everything in Free</li>
+                            <li>Advanced farming techniques</li>
+                            <li>Personalized recommendations</li>
+                            <li>Priority funding alerts</li>
+                            <li>Weather forecasting tools</li>
+                            <li>Expert Q&A sessions (monthly)</li>
+                        </ul>
+                        <button class="cta-btn" onclick="alert('Thank you for your interest! Payment processing would be integrated here.')">Subscribe Now</button>
+                    </div>
+
+                    <div class="tier">
+                        <h3>Premium</h3>
+                        <div class="price">$24.99<span style="font-size: 0.4em;">/month</span></div>
+                        <ul>
+                            <li>Everything in Basic</li>
+                            <li>Detailed policy analysis & commentary</li>
+                            <li>Legislative tracking & alerts</li>
+                            <li>1-on-1 consultation (2 hrs/month)</li>
+                            <li>Premium webinars & workshops</li>
+                            <li>Market price intelligence</li>
+                            <li>Custom farming plans</li>
+                        </ul>
+                        <button class="cta-btn" onclick="alert('Thank you for your interest! Payment processing would be integrated here.')">Subscribe Now</button>
+                    </div>
+                </div>
+
+                <div style="background: #f7fafc; padding: 25px; border-radius: 12px; margin-top: 40px;">
+                    <h3>Sponsorship Opportunities</h3>
+                    <p style="margin: 15px 0; color: #4a5568;">Are you an agricultural business looking to reach thousands of African farmers? Green Fields Africa offers targeted sponsorship opportunities.</p>
+                    <ul style="color: #4a5568; margin: 15px 0 15px 20px;">
+                        <li>Sponsored content in educational sections</li>
+                        <li>Featured placement in funding resources</li>
+                        <li>Banner advertising across platform</li>
+                        <li>Email newsletter sponsorship</li>
+                    </ul>
+                    <button class="cta-btn" style="width: auto; padding: 15px 40px;" onclick="alert('Thank you for your interest! Our partnerships team will contact you.')">Become a Sponsor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(s => s.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update nav buttons
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function filterContent(query, section) {
+            // This is a placeholder for search functionality
+            console.log(Searching for "${query}" in ${section} section);
+        }
+
+        // Filter tags functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('filter-tag')) {
+                const parent = e.target.parentElement;
+                const tags = parent.querySelectorAll('.filter-tag');
+                tags.forEach(tag => tag.classList.remove('active'));
+                e.target.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
